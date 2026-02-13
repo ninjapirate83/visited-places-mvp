@@ -1,6 +1,6 @@
 "use client";
 
-import type { Place } from "@/app/types";
+import type { Place } from "../types";
 
 export function PlaceList({
   places,
