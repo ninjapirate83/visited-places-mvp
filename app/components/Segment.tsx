@@ -1,6 +1,6 @@
 "use client";
 
-import type { PlaceType } from "@/app/types";
+import type { PlaceType } from "../types";
 
 export function Segment({
   value,
