@@ -23,6 +23,11 @@ export default function Page() {
 
   const accent = type === "US_STATE" ? "us" : "world";
   const title = type === "US_STATE" ? "US States" : "Countries";
+  const visitedRegionCodes = useMemo(
+  () => current.filter((p) => p.visited).map((p) => p.regionCode),
+  [current]
+);
+
 
   return (
     <main>
@@ -54,13 +59,15 @@ export default function Page() {
         Local-only MVP. Data is stored in this browser via localStorage.
       </div>
 
-      <MapModal
-        open={mapOpen}
-        onClose={() => setMapOpen(false)}
-        type={type}
-        visitedCount={visitedCount}
-        totalCount={totalCount}
-      />
+     <MapModal
+  open={mapOpen}
+  onClose={() => setMapOpen(false)}
+  type={type}
+  visitedCount={visitedCount}
+  totalCount={totalCount}
+  visitedRegionCodes={visitedRegionCodes}
+/>
+
     </main>
   );
 }
