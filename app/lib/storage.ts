@@ -1,5 +1,5 @@
-import type { Place, PlaceType } from "@/app/types";
-import { seedPlaces } from "@/app/lib/data";
+import type { Place, PlaceType } from "../types";
+import { seedPlaces } from "./data";
 
 const KEY = "visited_places_v1";
 
