@@ -1,4 +1,4 @@
-import type { Place } from "@/app/types";
+import type { Place } from "../types";
 
 const usStates: Array<{ name: string; code: string }> = [
   { name: "Alabama", code: "AL" }, { name: "Alaska", code: "AK" }, { name: "Arizona", code: "AZ" },
