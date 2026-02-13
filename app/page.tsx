@@ -1,20 +1,18 @@
-
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { PlaceType } from "@/app/types";
-import { Segment } from "@/app/components/Segment";
-import { ProgressHeader } from "@/app/components/ProgressHeader";
-import { PlaceList } from "@/app/components/PlaceList";
-import { MapModal } from "@/app/components/Maps";
-import { byType, loadPlaces, toggleVisited } from "@/app/lib/storage";
+import type { PlaceType } from "./types";
+import { Segment } from "./components/Segment";
+import { ProgressHeader } from "./components/ProgressHeader";
+import { PlaceList } from "./components/PlaceList";
+import { MapModal } from "./components/Maps";
+import { byType, loadPlaces, toggleVisited } from "./lib/storage";
 
 export default function Page() {
   const [type, setType] = useState<PlaceType>("US_STATE");
   const [places, setPlaces] = useState(() => loadPlaces());
   const [mapOpen, setMapOpen] = useState(false);
 
-  // Ensure client-side load (in case SSR fallback ever changes)
   useEffect(() => {
     setPlaces(loadPlaces());
   }, []);
