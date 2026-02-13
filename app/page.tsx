@@ -13,19 +13,14 @@ export default function Page() {
   const [places, setPlaces] = useState(() => loadPlaces());
   const [mapOpen, setMapOpen] = useState(false);
 
-  // Load from localStorage on the client (authoritative)
   useEffect(() => {
     setPlaces(loadPlaces());
   }, []);
 
-  // Current list (states OR countries)
   const current = useMemo(() => byType(places, type), [places, type]);
-
-  // Progress
   const visitedCount = useMemo(() => current.filter((p) => p.visited).length, [current]);
   const totalCount = current.length;
 
-  // Codes used by the map highlighter
   const visitedRegionCodes = useMemo(
     () => current.filter((p) => p.visited).map((p) => p.regionCode),
     [current]
@@ -66,4 +61,12 @@ export default function Page() {
 
       <MapModal
         open={mapOpen}
-        onClose={
+        onClose={() => setMapOpen(false)}
+        type={type}
+        visitedCount={visitedCount}
+        totalCount={totalCount}
+        visitedRegionCodes={visitedRegionCodes}
+      />
+    </main>
+  );
+}
