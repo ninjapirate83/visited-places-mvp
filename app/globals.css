@@ -1,1 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #ffffff;
+  --fg: #0b0b0b;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --card: #fafafa;
+  --accent-us: #7dd3fc;       /* subtle sky */
+  --accent-world: #a7f3d0;    /* subtle mint */
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 
