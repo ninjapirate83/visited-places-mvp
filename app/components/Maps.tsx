@@ -187,6 +187,30 @@ function RealMap({
 }) {
   const visitedSet = useMemo(() => new Set(visitedRegionCodes), [visitedRegionCodes]);
 
+  const normalizeNumericCode = (value: unknown): string | null => {
+    if (value === null || value === undefined) return null;
+    const trimmed = String(value).trim();
+    if (!/^\d+$/.test(trimmed)) return null;
+    return String(Number(trimmed));
+  };
+
+  const getRegionCode = (geo: any): string | null => {
+    if (kind === "US_STATE") {
+      const fips =
+        normalizeNumericCode(geo?.id) ??
+        normalizeNumericCode(geo?.properties?.STATEFP) ??
+        normalizeNumericCode(geo?.properties?.GEOID);
+      return fips ? FIPS_TO_USPS[fips] ?? null : null;
+    }
+
+    const isoNumeric =
+      normalizeNumericCode(geo?.id) ??
+      normalizeNumericCode(geo?.properties?.iso_n3) ??
+      normalizeNumericCode(geo?.properties?.ISO_N3);
+
+    return isoNumeric ? ISO_NUMERIC_TO_ALPHA2[isoNumeric] ?? null : null;
+  };
+
   const cfg =
     kind === "US_STATE"
       ? { projection: "geoAlbersUsa" as const, scale: 980, height: 320 }
@@ -204,14 +228,7 @@ function RealMap({
         <Geographies geography={geoData}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              const id = String(geo.id);
-
-              let code: string | null = null;
-              if (kind === "US_STATE") {
-                code = FIPS_TO_USPS[id] ?? null;
-              } else {
-                code = ISO_NUMERIC_TO_ALPHA2[id] ?? null;
-              }
+              const code = getRegionCode(geo);
 
               const visited = code ? visitedSet.has(code) : false;
 

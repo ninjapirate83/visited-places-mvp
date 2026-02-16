@@ -3,7 +3,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Visited Places",
-  description: "A simple visited places tracker (US states + countries)."
+  description: "A simple visited places tracker (US states + countries).",
+  icons: {
+    icon: "/icon.svg"
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
